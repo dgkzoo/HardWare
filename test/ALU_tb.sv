@@ -4,15 +4,15 @@ module ALU_tb();
 	reg clk;
 	reg[15:0] x;
 	reg[15:0] y;
-	reg zx;		// 入力xをゼロにする
-	reg nx;		// 入力xを反転する
-	reg zy;		// 入力yをゼロにする
-	reg ny;		// 入力yを反転する
-	reg f;			// 関数コード（1：加算、0：And演算）
-	reg no;		// 出力outを反転する
+	reg zx;				// 入力xをゼロにする
+	reg nx;				// 入力xを反転する
+	reg zy;				// 入力yをゼロにする
+	reg ny;				// 入力yを反転する
+	reg f;				// 関数コード（1：加算、0：And演算）
+	reg no;				// 出力outを反転する
 	wire[15:0] out;		// 結果
-	wire zr;		// out=0 の場合にtrue
-	wire ng;		// out<0 の場合にtrue
+	wire zr;			// out=0 の場合にtrue
+	wire ng;			// out<0 の場合にtrue
 
 	always #1 clk = !clk;
 
@@ -25,7 +25,7 @@ module ALU_tb();
 		.ny(ny),
 		.f(f),
 		.no(no),
-		.out(put),
+		.out(out),
 		.zr(zr),
 		.ng(ng)
 	);
@@ -272,7 +272,7 @@ module ALU_tb();
 		#3410
 		if (out != 16'b1111111111110010) $display("#00 out ng");
 		if (zr != 1'b0) $display("#3410 zr ng");
-		if (ng != 1'b0) $display("#3410 ng ng");
+		if (ng != 1'b1) $display("#3410 ng ng");
 
 		#3500
 		x <= 16'b0000000000010001; y <= 16'b0000000000000011; zx <= 0; nx <= 0; zy <= 0; ny <= 0; f <= 0; no <= 0;

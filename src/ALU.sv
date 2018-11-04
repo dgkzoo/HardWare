@@ -29,6 +29,6 @@ module ALU(
 
 	assign out = no ? ~work_out1 : work_out1;
 	assign zr = (out == 0) ? 1'b1 : 1'b0;
-	assign ng = (out < 0) ? 1'b1 : 1'b0;
+	assign ng = (out[15] == 1'b1) ? 1'b1 : 1'b0;
 
 endmodule
