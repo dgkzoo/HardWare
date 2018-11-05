@@ -12,14 +12,7 @@ module Bit(
 			val <= in;
 		end
 	end
-	// Mux mux(
-	// 	.a(val),
-	// 	.b(in),
-	// 	.sel(load),
-	// 	.out(val));
 
-	// assign out = val;
 	assign out = val;
-	
 
 endmodule
