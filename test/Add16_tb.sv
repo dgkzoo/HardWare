@@ -16,6 +16,7 @@ module Add16_tb();
 
 	initial begin
 		$display("start test");
+		clk <= 1;
 
 		#1
 		a <= 0;

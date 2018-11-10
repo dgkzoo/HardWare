@@ -19,8 +19,9 @@ module FullfAdder_tb();
 	);
 
 	initial begin
-	  $display("start test");
-	  
+		$display("start test");
+		clk <= 1;
+	
 		#10
 		a <= 1'b0;
 		b <= 1'b0;

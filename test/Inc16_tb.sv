@@ -14,6 +14,7 @@ module Inc16_tb();
 
 	initial begin
 		$display("start test");
+		clk <= 1;
 
 		#10
 		a <= 0;

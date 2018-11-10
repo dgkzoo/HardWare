@@ -32,6 +32,7 @@ module ALU_tb();
 
 	initial begin
 		$display("start test");
+		clk <= 1;
 
 		#100
 		x <= 16'b0000000000000000; y <= 16'b1111111111111111; zx <= 1; nx <= 0; zy <= 1; ny <= 0; f <= 1; no <= 0;

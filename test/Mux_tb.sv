@@ -18,6 +18,7 @@ module Mux_tb();
 
 	initial begin
 		$display("start test");
+		clk <= 1;
 
 		#100
 		a <= 0; b <= 0; sel <= 0;
