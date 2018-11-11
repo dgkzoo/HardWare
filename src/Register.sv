@@ -2,7 +2,7 @@
 module Register(
 	input clk,			// clk
 	input[15:0] in,		// in値
-	input load,			// load?
+	input load,			// load
 	output[15:0] out);	// out
 
 	reg[15:0] val;

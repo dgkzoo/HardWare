@@ -2,7 +2,7 @@
 module Bit(
 	input clk,			// clk
 	input in,			// in値
-	input load,			// load?
+	input load,			// load
 	output out);		// out
 
 	reg val;
