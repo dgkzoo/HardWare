@@ -23,11 +23,6 @@ module PC_tb();
 		.out(out)
 	);
 
-	integer count = 0;
-	always @(posedge clk) begin
-		count <= count + 1;
-	end
-
 	initial begin
 		$display("start test");
 		
