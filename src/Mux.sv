@@ -5,6 +5,6 @@ module Mux(
 	input sel,			// セレクタ
 	output out);		// out
 
-	assign out = sel == 1'b0 ? a : b;
+	assign out = (sel == 1'b0) ? a : b;
 
 endmodule
