@@ -4,7 +4,7 @@ module Computer(
 	input reset,				// reset
 	output[14:0] debug_pc,		// デバッグ用・PC
 	output[15:0] debug_inst,	// デバッグ用・inst
-	output[15:0] debug_inM		// デバッグ用・inM
+	output[15:0] debug_outM		// デバッグ用・outM
 	);
 
 	reg[15:0] inst;
@@ -55,7 +55,7 @@ module Computer(
 
 	// for debug
 	assign debug_pc = pc;
-	assign debug_inM = inM;
 	assign debug_inst = inst;
+	assign debug_outM = outM;
 
 endmodule
