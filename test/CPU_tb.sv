@@ -18,13 +18,13 @@ module CPU_tb();
 
 	CPU cpu(
 		.clk(clk),
-		.inM,
-		.inst,
-		.reset,
-		.outM,
-		.writeM,
-		.addressM,
-		.pc);
+		.inM(inM),
+		.inst(inst),
+		.reset(reset),
+		.outM(outM),
+		.writeM(writeM),
+		.addressM(addressM),
+		.pc(pc));
 
 	initial begin
 		$display("start test");
