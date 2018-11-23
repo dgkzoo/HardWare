@@ -4,7 +4,7 @@
  * ## author
  * k-daigo
  */
- `default_nettype none
+`default_nettype none
 module And(
 	input wire a,
 	input wire b,
