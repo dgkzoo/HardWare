@@ -4,11 +4,16 @@
  * ## author
  * k-daigo
  */
+`default_nettype none
 module Not(
-	input in,
-	output out);
+	input wire in,
+	output wire out);
 
 	wire nandOut;
-	Nand nand1(.a(1), .b(in), .out(nandOut));
+	Nand nand1(
+		.a(1'b1),
+		.b(in),
+		.out(nandOut));
+
 	assign out = ~nandOut;
 endmodule

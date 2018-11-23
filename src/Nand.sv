@@ -11,10 +11,11 @@
  * ## author
  * k-daigo
  */
+`default_nettype none
 module Nand(
-	input a,
-	input b,
-	output out);
+	input wire a,
+	input wire b,
+	output wire out);
 
 	assign out = ~(a & b);
 endmodule
