@@ -1,7 +1,8 @@
 // 7 segment decoder
+`default_nettype none
 module HexSegDec(
-	input[3:0] data,
-	output[7:0] out);
+	input wire[3:0] data,
+	output wire[7:0] out);
 
 	function [7:0] Decoder;
 		input [3:0] num;

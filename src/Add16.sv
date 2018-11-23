@@ -1,8 +1,9 @@
 // 加算器16
+`default_nettype none
 module Add16(
-	input[15:0] a,		// 値１
-	input[15:0] b,		// 値２
-	output[15:0] out);	// 結果
+	input wire[15:0] a,		// 値１
+	input wire[15:0] b,		// 値２
+	output wire[15:0] out);	// 結果
  
 	wire[15:0] carry;
 

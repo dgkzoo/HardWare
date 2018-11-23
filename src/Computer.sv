@@ -4,14 +4,15 @@
  *
  * @author k-daigo
  */
+`default_nettype none
 module Computer(
-	input clk,						// clk
-	input reset,					// reset
-	output[14:0] debug_pc,			// デバッグ用・PC
-	output[15:0] debug_inst,		// デバッグ用・inst
-	output[15:0] debug_addressM,	// デバッグ用・addressM
-	output[15:0] debug_outM,		// デバッグ用・outM
-	output[15:0] debug_writeM		// デバッグ用・writeM
+	input wire clk,						// clk
+	input wire reset,					// reset
+	output wire[14:0] debug_pc,			// デバッグ用・PC
+	output wire[15:0] debug_inst,		// デバッグ用・inst
+	output wire[15:0] debug_addressM,	// デバッグ用・addressM
+	output wire[15:0] debug_outM,		// デバッグ用・outM
+	output wire[15:0] debug_writeM		// デバッグ用・writeM
 	);
 
 	reg[15:0] inst;

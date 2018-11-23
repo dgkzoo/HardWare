@@ -1,10 +1,11 @@
 // 全加算器
+`default_nettype none
 module FullAdder(
-	input a,		// 値１
-	input b,		// 値２
-	input c,		// 値３
-	output sum,		// 結果
-	output carry);	// キャリーフラグ
+	input wire a,		// 値１
+	input wire b,		// 値２
+	input wire c,		// 値３
+	output wire sum,		// 結果
+	output wire carry);	// キャリーフラグ
  
 	wire half_sum1;
 	wire half_carry1;

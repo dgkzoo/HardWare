@@ -1,9 +1,10 @@
 // マルチプレクサ
+`default_nettype none
 module Mux(
-	input a,			// 値a
-	input b,			// 値b
-	input sel,			// セレクタ
-	output out);		// out
+	input wire a,			// 値a
+	input wire b,			// 値b
+	input wire sel,			// セレクタ
+	output wire out);		// out
 
 	assign out = (sel == 1'b0) ? a : b;
 

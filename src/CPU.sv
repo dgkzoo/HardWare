@@ -5,15 +5,16 @@
  *
  * @author k-daigo
  */
+`default_nettype none
 module CPU(
-	input clk,				// clk
-	input[15:0] inM,		// メモリ入力
-	input[15:0] inst,		// instruction（実行する命令）
-	input reset,			// reset
-	output[15:0] outM,		// メモリ出力
-	output writeM,			// M書き込みを行うか
-	output[14:0] addressM,	// データメモリ中のMのアドレス
-	output[14:0] pc);		// プログラムカウンタ出力
+	input wire clk,				// clk
+	input wire[15:0] inM,		// メモリ入力
+	input wire[15:0] inst,		// instruction（実行する命令）
+	input wire reset,			// reset
+	output wire[15:0] outM,		// メモリ出力
+	output wire writeM,			// M書き込みを行うか
+	output wire[14:0] addressM,	// データメモリ中のMのアドレス
+	output wire[14:0] pc);		// プログラムカウンタ出力
 
 	//
 	// Decode

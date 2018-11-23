@@ -1,11 +1,12 @@
 // 16ビットカウンタ
+`default_nettype none
 module PC(
-	input clk,				// clk
-	input[15:0] in,			// in値
-	input inc,				// incliment flg
-	input load,				// write enable flg
-	input reset,			// reset flg
-	output[15:0] out);		// out
+	input wire clk,				// clk
+	input wire[15:0] in,			// in値
+	input wire inc,				// incliment flg
+	input wire load,				// write enable flg
+	input wire reset,			// reset flg
+	output wire[15:0] out);		// out
 
 	reg[15:0] counter = 0;
 

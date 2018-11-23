@@ -1,9 +1,10 @@
 // Bit
+`default_nettype none
 module Bit(
-	input clk,			// clk
-	input in,			// in値
-	input load,			// load
-	output out);		// out
+	input wire clk,			// clk
+	input wire in,			// in値
+	input wire load,			// load
+	output wire out);		// out
 
 	reg val;
 
