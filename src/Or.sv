@@ -2,7 +2,7 @@
  * # Or
  *
  * ## author
- * k-daigo
+ * dgkzoo
  */
  `default_nettype none
 module Or(

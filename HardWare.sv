@@ -1,6 +1,6 @@
 /**
  * @brief ハードウェアのトップレベルモジュール
- * @author k-daigo
+ * @author dgkzoo
  */
 module HardWare(
 	input clk,

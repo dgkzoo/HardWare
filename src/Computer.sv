@@ -2,7 +2,7 @@
  * @brief コンピュータ<br>
  * CPUとプログラムROM、RAMを持つ
  *
- * @author k-daigo
+ * @author dgkzoo
  */
 `default_nettype none
 module Computer(

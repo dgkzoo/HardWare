@@ -9,7 +9,7 @@
  * | 1 1 | 0          |
  *
  * ## author
- * k-daigo
+ * dgkzoo
  */
 `default_nettype none
 module Nand(
