@@ -33,7 +33,7 @@ module Computer(
 		.load(writeM),
 		.out(inM));
 
-	// 命令COM
+	// 命令ROM
 	function [15:0] InstructionRom;
 		input [31:0] addr;
 		begin
