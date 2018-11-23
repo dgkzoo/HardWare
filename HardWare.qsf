@@ -89,6 +89,7 @@ set_location_assignment PIN_D19 -to hled3[5]
 set_location_assignment PIN_G15 -to hled3[6]
 set_location_assignment PIN_G16 -to hled3[7]
 set_location_assignment PIN_G21 -to clk
+set_global_assignment -name SYSTEMVERILOG_FILE src/Or.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/And.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/Nand.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/Not.sv
