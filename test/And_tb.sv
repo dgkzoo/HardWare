@@ -1,5 +1,6 @@
 // テストベンチ
 // And
+`default_nettype none
 module And_tb();
 	reg a;
 	reg b;
