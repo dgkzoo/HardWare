@@ -16,7 +16,7 @@ module CPU(
 	// A命令か？
 	wire isAinst;
 	wire[15:0] aluOut;
-	assign isAinst = ~inst[15];
+	assign isAinst = inst[15] == 1'b0;
 
 	// A命令の場合は、そのアドレス（かデータ）、C命令の場合はALUの出力を toA に配線。
 	wire[15:0] toA;

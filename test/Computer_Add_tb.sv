@@ -2,6 +2,7 @@
 
 // テストベンチ
 // Computer
+// Add.hack
 module Computer_tb();
 	reg clk = 0;
 	reg reset = 0;
@@ -24,16 +25,18 @@ module Computer_tb();
 	initial begin
 		$display("start test");
 
-		// テストintruction
-		// // Add.hack
-		// 0: InstructionRom = 16'b0000000000000010;	// @2
-		// 1: InstructionRom = 16'b1110110000010000;	// D=A
-		// 2: InstructionRom = 16'b0000000000000011;	// @3
-		// 3: InstructionRom = 16'b1110000010010000;	// D=D+A
-		// 4: InstructionRom = 16'b0000000000000000;	// @0
-		// 5: InstructionRom = 16'b1110001100001000;	// M=D
-		// 6: InstructionRom = 16'b0000000000000110;	// @6
-		// 7: InstructionRom = 16'b1110000000000111;	// JMP
+		// テストintruction Computer.svのInstructionRomに記載する内容
+		/*
+		// Add.hack
+		0: InstructionRom = 16'b0000000000000010;	// @2
+		1: InstructionRom = 16'b1110110000010000;	// D=A
+		2: InstructionRom = 16'b0000000000000011;	// @3
+		3: InstructionRom = 16'b1110000010010000;	// D=D+A
+		4: InstructionRom = 16'b0000000000000000;	// @0
+		5: InstructionRom = 16'b1110001100001000;	// M=D
+		6: InstructionRom = 16'b0000000000000110;	// @6
+		7: InstructionRom = 16'b1110000000000111;	// JMP
+		*/
 
 		#(RATE)
 		// @2

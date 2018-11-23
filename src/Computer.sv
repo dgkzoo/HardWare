@@ -1,15 +1,18 @@
 // Computer
 module Computer(
-	input clk,					// clk
-	input reset,				// reset
-	output[14:0] debug_pc,		// デバッグ用・PC
-	output[15:0] debug_inst,	// デバッグ用・inst
-	output[15:0] debug_outM		// デバッグ用・outM
+	input clk,						// clk
+	input reset,					// reset
+	output[14:0] debug_pc,			// デバッグ用・PC
+	output[15:0] debug_inst,		// デバッグ用・inst
+	output[15:0] debug_addressM,	// デバッグ用・addressM
+	output[15:0] debug_outM,		// デバッグ用・outM
+	output[15:0] debug_writeM		// デバッグ用・writeM
 	);
 
 	reg[15:0] inst;
 	wire[15:0] outM, inM;
-	wire[14:0] pc, addressM;
+	wire[14:0] pc;
+	wire[14:0] addressM;
 	wire writeM;
 
 	always @(posedge clk) begin
@@ -35,9 +38,10 @@ module Computer(
 
 	// 命令ROM
 	function [15:0] InstructionRom;
-		input [31:0] addr;
+		input [15:0] addr;
 		begin
 			case (addr)
+				/*
 				// Add.hack
 				0: InstructionRom = 16'b0000000000000010;	// @2
 				1: InstructionRom = 16'b1110110000010000;	// D=A
@@ -46,9 +50,18 @@ module Computer(
 				4: InstructionRom = 16'b0000000000000000;	// @0
 				5: InstructionRom = 16'b1110001100001000;	// M=D
 				6: InstructionRom = 16'b0000000000000110;	// @6
-				7: InstructionRom = 16'b1110000000000111;	// JMP
+				7: InstructionRom = 16'b1110000000000111;	// 0;JMP
+				*/
 
-				default : InstructionRom = 16'b0000000000000000;
+				// Counter.hack
+				// Dレジスタを約25,000クロックに1回インクリメント
+				// インクリメントDレジスタの値はメモリへの出力値とする
+				0: InstructionRom = 16'b0_000_0000_0000_0000;			// @0
+				1: InstructionRom = 16'b111_0_110000_010_000;			// D=A :to _D_
+				2: InstructionRom = 16'b111_0_011111_011_000;			// D+1 :to _DM
+				25000: InstructionRom = 16'b0_000_0000_0000_0010;		// @2
+				25001: InstructionRom = 16'b111_0_101010_000_111;		// 0;JMP 
+				default : InstructionRom = 16'b0_000_0000_0000_0000;	// NOP(@0)
 			endcase
 		end
 	endfunction
@@ -56,6 +69,7 @@ module Computer(
 	// for debug
 	assign debug_pc = pc;
 	assign debug_inst = inst;
+	assign debug_addressM = addressM;
 	assign debug_outM = outM;
-
+	assign debug_writeM = writeM;
 endmodule

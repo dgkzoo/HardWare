@@ -17,7 +17,7 @@ module PC(
 			counter <= in;
 
 		end else if(inc == 1'b1) begin
-			counter <= counter + 1;
+			counter <= counter + 16'd1;
 		end
 	end
 
