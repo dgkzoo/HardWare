@@ -1,4 +1,10 @@
-// CPU
+/**
+ * @brief CPU<br>
+ * レジスタはAとDのレジスタだけ。
+ * 命令に従い、レジスタへの値保持、ALUでの計算、計算結果の出力を行う。
+ *
+ * @author k-daigo
+ */
 module CPU(
 	input clk,				// clk
 	input[15:0] inM,		// メモリ入力

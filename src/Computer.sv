@@ -1,4 +1,9 @@
-// Computer
+/**
+ * @brief コンピュータ<br>
+ * CPUとプログラムROM、RAMを持つ
+ *
+ * @author k-daigo
+ */
 module Computer(
 	input clk,						// clk
 	input reset,					// reset
@@ -15,6 +20,7 @@ module Computer(
 	wire[14:0] addressM;
 	wire writeM;
 
+	// プログラムカウンタが指す命令をROMから取得する
 	always @(posedge clk) begin
 		inst <= InstructionRom(pc);
 	end
@@ -43,6 +49,7 @@ module Computer(
 			case (addr)
 				/*
 				// Add.hack
+				// 5=2+3 を計算する
 				0: InstructionRom = 16'b0000000000000010;	// @2
 				1: InstructionRom = 16'b1110110000010000;	// D=A
 				2: InstructionRom = 16'b0000000000000011;	// @3
@@ -53,7 +60,7 @@ module Computer(
 				7: InstructionRom = 16'b1110000000000111;	// 0;JMP
 				*/
 
-				// Counter.hack
+				// カウンタ
 				// Dレジスタを約25,000クロックに1回インクリメント
 				// インクリメントDレジスタの値はメモリへの出力値とする
 				0: InstructionRom = 16'b0_000_0000_0000_0000;			// @0

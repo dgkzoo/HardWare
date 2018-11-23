@@ -1,4 +1,7 @@
-// Top Level
+/**
+ * @brief ハードウェアのトップレベルモジュール
+ * @author k-daigo
+ */
 module HardWare(
 	input clk,
 	input [2:0] btn,
@@ -19,6 +22,7 @@ module HardWare(
 	Computer computer(
 		.clk(clk),
 		.reset(0),
+		// 以下、デバッグ用の配線
 		.debug_pc(debug_pc),
 		.debug_inst(debug_inst),
 		.debug_addressM(debug_addressM),
@@ -26,8 +30,10 @@ module HardWare(
 		.debug_writeM(debug_writeM)
 	);
 
+	// カウンタを動かすための実装
 	reg[15:0] count = 0;
 	always @(posedge clk) begin
+		// メモリ書き込みがHighの場合にoutM値をcountに保持
 		if (debug_writeM == 1'b1) begin
 			count <= debug_outM;
 		end
