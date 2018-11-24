@@ -14,6 +14,6 @@ module Or(
 
 	Not not1(.in(a), .out(not1Out));
 	Not not2(.in(b), .out(not2Out));
-	And and1(.a(~not1Out), .b(~not2Out), .out(andOut));
-	assign out = ~andOut;
+	And and1(.a(not1Out), .b(not2Out), .out(andOut));
+	Not not3(.in(andOut), .out(out));
 endmodule
