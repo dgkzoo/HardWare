@@ -34,12 +34,18 @@ module ALU(
 	assign workY2 = ny ? notY1 : workY1;
 
 	// 関数コード（1：加算、0：And演算）
+	// 1：加算　用
 	Add16 add16(
 		.a(workX2),
 		.b(workY2),
 		.out(workAdd16));
 
-	assign workOut1 = f ? workAdd16 : workX2 & workY2;
+	// 0：And演算 用
+	wire[15:0] andXY;
+	And16 and16(.a(workX2), .b(workY2), .out(andXY));
+
+	// 関数実行
+	assign workOut1 = f ? workAdd16 : andXY;
 
 	// 出力outを反転する
 	assign out = no ? ~workOut1 : workOut1;
