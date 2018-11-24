@@ -6,7 +6,6 @@ module Mux16(
 	input wire sel,				// セレクタ
 	output wire[15:0] out);		// out
 
-//	assign out = (sel == 1'b0) ? a : b;
 	Mux mux0(.a(a[0]), .b(b[0]), .sel(sel), .out(out[0]));
 	Mux mux1(.a(a[1]), .b(b[1]), .sel(sel), .out(out[1]));
 	Mux mux2(.a(a[2]), .b(b[2]), .sel(sel), .out(out[2]));
