@@ -43,7 +43,7 @@ module CPU(
 	// C命令でcompのaがOnの場合、メモリ入力（inM）の値、それ以外はAレジスタの値をALUへの入力とする
 	wire isCompAon;
 	wire[15:0] AM;
-	assign isCompAon = inst[15] && inst[12];
+	And andIsCompAon(.a(inst[15]), .b(inst[12]), .out(isCompAon));
 	assign AM = isCompAon == 0 ? aOut : inM;	// Mux
 
 	//
