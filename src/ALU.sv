@@ -53,7 +53,7 @@ module ALU(
 	assign out = no ? workOut1Not : workOut1;
 
 	// out=0 の場合にtrue
-	assign zr = (out == 0) ? 1'b1 : 1'b0;
+	assign zr = (out == 16'd0) ? 1'b1 : 1'b0;
 
 	// out<0 の場合にtrue
 	assign ng = (out[15] == 1'b1) ? 1'b1 : 1'b0;
