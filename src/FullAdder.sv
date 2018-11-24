@@ -3,18 +3,16 @@
 module FullAdder(
 	input wire a,		// 値１
 	input wire b,		// 値２
-	input wire c,		// 値３
-	output wire sum,	// 結果
-	output wire carry);	// キャリーフラグ
+	input wire c,		// 下位の桁上がり
+	output wire sum,	// 加算結果
+	output wire carry);	// 桁上がり
  
-	wire half_sum1;
-	wire half_carry1;
-	wire half_sum2;
-	wire half_carry2;
+	wire ha1Sum;
+	wire ha1Carry;
+	wire ha2Carry;
 
-	HalfAdder ha1(a, b, half_sum1, half_carry1);
-	HalfAdder ha2(half_sum1, c, half_sum2, half_carry2);
+	HalfAdder ha1(a, b, ha1Sum, ha1Carry);
+	HalfAdder ha2(ha1Sum, c, sum, ha2Carry);
 
-	_Xor xor1(.a(half_sum1), .b(c), .out(sum));
-	_Or or1(.a(half_carry1), .b(half_carry2), .out(carry));
+	_Or or1(.a(ha1Carry), .b(ha2Carry), .out(carry));
 endmodule
