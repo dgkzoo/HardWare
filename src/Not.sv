@@ -9,7 +9,7 @@ module Not(
 	input wire in,
 	output wire out);
 
-	Nand nand1(
+	_Nand nand1(
 		.a(1'b1),
 		.b(in),
 		.out(out));

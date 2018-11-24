@@ -8,7 +8,7 @@ module And_tb();
 
 	parameter RATE = 1;
 
-	And and1(
+	_And and1(
 		.a(a),
 		.b(b),
 		.out(out)

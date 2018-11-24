@@ -33,7 +33,7 @@ module CPU(
 	// A命令の場合か、C命令のdestのd1がOnの場合（Aレジスタに計算結果を格納する命令の場合）は、Aレジスタにロードさせる
 	wire isAload;
 	wire[15:0] aOut;
-	Or orIsAload(.a(isAinst), .b(inst[5]), .out(isAload));
+	_Or orIsAload(.a(isAinst), .b(inst[5]), .out(isAload));
 	Register a_reg(.clk(clk), .in(toA), .load(isAload), .out(aOut));
 
 	// Aレジスタの出力は addressM としてCPUから出力
@@ -43,7 +43,7 @@ module CPU(
 	// C命令でcompのaがOnの場合、メモリ入力（inM）の値、それ以外はAレジスタの値をALUへの入力とする
 	wire isCompAon;
 	wire[15:0] AM;
-	And andIsCompAon(.a(inst[15]), .b(inst[12]), .out(isCompAon));
+	_And andIsCompAon(.a(inst[15]), .b(inst[12]), .out(isCompAon));
 	assign AM = isCompAon == 0 ? aOut : inM;	// Mux
 
 	//
@@ -70,11 +70,11 @@ module CPU(
 	// Dレジスタ
 	// C命令でdestのd2がOn（Dレジスタに計算結果を格納する命令）の場合は、ALUの出力をDレジスタにロードさせる
 	wire isDload;
-	And andIsDload(.a(inst[15]), .b(inst[4]), .out(isDload));
+	_And andIsDload(.a(inst[15]), .b(inst[4]), .out(isDload));
 	Register d_reg(.clk(clk), .in(aluOut), .load(isDload), .out(d_out));
 
 	// C命令でdestのd3がOn（Memory[A]に計算結果を格納する命令）の場合は、CPU出力 writeM をOn（メモリ書き込みをOn）
-	And andWriteM(.a(inst[15]), .b(inst[3]), .out(writeM));
+	_And andWriteM(.a(inst[15]), .b(inst[3]), .out(writeM));
 
 	//
 	// プログラムカウンタの制御
@@ -85,35 +85,35 @@ module CPU(
 	Not notIsPositive(.in(aluOutIsNega), .out(isPositive));
 	Not notIsNotZero(.in(aluOutIsZero), .out(isNotZero));
 	wire instJgt, isGt;
-	And andInstJgt(.a(inst[15]), .b(inst[0]), .out(instJgt));
-	And andIsGt(.a(isPositive), .b(isNotZero), .out(isGt));
+	_And andInstJgt(.a(inst[15]), .b(inst[0]), .out(instJgt));
+	_And andIsGt(.a(isPositive), .b(isNotZero), .out(isGt));
 
 	// PCを書き換えるか判定する為の材料（GT）
 	wire isPcLoadJgt;
-	And andIsPcLoadJgt(.a(instJgt), .b(isGt), .out(isPcLoadJgt));
+	_And andIsPcLoadJgt(.a(instJgt), .b(isGt), .out(isPcLoadJgt));
 
 	// C命令でj2がOn（out == 0）が命令されているか？
 	wire instJeq;
-	And andInstJeq(.a(inst[15]), .b(inst[1]), .out(instJeq));
+	_And andInstJeq(.a(inst[15]), .b(inst[1]), .out(instJeq));
 	// PCを書き換えるか判定する為の材料（EQ）
 	wire isPcLoadJeq;
-	And andIsPcLoadJeq(.a(instJeq), .b(aluOutIsZero), .out(isPcLoadJeq));
+	_And andIsPcLoadJeq(.a(instJeq), .b(aluOutIsZero), .out(isPcLoadJeq));
 
 	// C命令でj1がOn（out < 0）が命令されているか？
 	wire instJlt;
-	And andInstJlt(.a(inst[15]), .b(inst[2]), .out(instJlt));
+	_And andInstJlt(.a(inst[15]), .b(inst[2]), .out(instJlt));
 
 	// PCを書き換えるか判定する為の材料（LT）
 	wire isPcLoadJlt;
-	And andIsPcLoadJlt(.a(instJlt), .b(aluOutIsNega), .out(isPcLoadJlt));
+	_And andIsPcLoadJlt(.a(instJlt), .b(aluOutIsNega), .out(isPcLoadJlt));
 
 	// PCを書き換えるか判定する為の材料（GE）
 	wire isPcLoadJGe;
-	Or orIsPcLoadJGe(.a(isPcLoadJgt), .b(isPcLoadJeq), .out(isPcLoadJGe));
+	_Or orIsPcLoadJGe(.a(isPcLoadJgt), .b(isPcLoadJeq), .out(isPcLoadJGe));
 
 	// PCを書き換えるか
 	wire isPcLoad;
-	Or orIsPcLoad(.a(isPcLoadJlt), .b(isPcLoadJGe), .out(isPcLoad));
+	_Or orIsPcLoad(.a(isPcLoadJlt), .b(isPcLoadJGe), .out(isPcLoad));
 
 	// プログラムカウンタ
 	wire[15:0] pcOut;

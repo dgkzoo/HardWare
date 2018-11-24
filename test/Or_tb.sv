@@ -8,7 +8,7 @@ module Or_tb();
 
 	parameter RATE = 1;
 
-	Or or1(
+	_Or or1(
 		.a(a),
 		.b(b),
 		.out(out)

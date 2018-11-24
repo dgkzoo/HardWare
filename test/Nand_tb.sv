@@ -7,7 +7,7 @@ module Nand_tb();
 
 	parameter RATE = 1;
 
-	Nand nand1(
+	_Nand nand1(
 		.a(a),
 		.b(b),
 		.out(out)

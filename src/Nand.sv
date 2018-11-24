@@ -12,7 +12,7 @@
  * dgkzoo
  */
 `default_nettype none
-module Nand(
+module _Nand(
 	input wire a,
 	input wire b,
 	output wire out);
