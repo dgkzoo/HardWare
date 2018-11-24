@@ -48,7 +48,9 @@ module ALU(
 	assign workOut1 = f ? workAdd16 : andXY;
 
 	// 出力outを反転する
-	assign out = no ? ~workOut1 : workOut1;
+	wire[15:0] workOut1Not;
+	Not16 not16forOut(.in(workOut1), .out(workOut1Not));
+	assign out = no ? workOut1Not : workOut1;
 
 	// out=0 の場合にtrue
 	assign zr = (out == 0) ? 1'b1 : 1'b0;
