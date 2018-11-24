@@ -70,7 +70,8 @@ module CPU(
 	// Dレジスタ
 	// C命令でdestのd2がOn（Dレジスタに計算結果を格納する命令）の場合は、ALUの出力をDレジスタにロードさせる
 	wire isDload;
-	assign isDload = inst[15] && inst[4];
+	And andIsDload(.a(inst[15]), .b(inst[4]), .out(isDload));
+	//assign isDload = inst[15] && inst[4];
 	Register d_reg(.clk(clk), .in(aluOut), .load(isDload), .out(d_out));
 
 	// C命令でdestのd3がOn（Memory[A]に計算結果を格納する命令）の場合は、CPU出力 writeM をOn（メモリ書き込みをOn）
