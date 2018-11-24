@@ -23,5 +23,4 @@ module Add16(
 	FullAdder fa14(a[13], b[13], carry[12], out[13], carry[13]);
 	FullAdder fa15(a[14], b[14], carry[13], out[14], carry[14]);
 	FullAdder fa16(a[15], b[15], carry[14], out[15], carry[15]);
-
 endmodule
