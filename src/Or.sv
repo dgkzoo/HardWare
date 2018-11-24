@@ -4,7 +4,7 @@
  * ## author
  * dgkzoo
  */
- `default_nettype none
+`default_nettype none
 module Or(
 	input wire a,
 	input wire b,
