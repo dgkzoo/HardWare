@@ -23,7 +23,7 @@ module CPU(
 	// A命令か？
 	wire isAinst;
 	wire[15:0] aluOut;
-	assign isAinst = inst[15] == 1'b0;
+	Mux muxIsAinst(.a(1'b1), .b(1'b0), .sel(inst[15]), .out(isAinst));
 
 	// A命令の場合は、そのアドレス（かデータ）、C命令の場合はALUの出力を toA に配線。
 	wire[15:0] toA;
