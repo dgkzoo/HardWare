@@ -6,6 +6,6 @@ module HalfAdder(
 	output wire sum,	// 結果
 	output wire carry);	// キャリーフラグ
  
-	assign sum = a ^ b;
+	Xor xor1(.a(a), .b(b), .out(sum));
 	_And and1(.a(a), .b(b), .out(carry));
 endmodule
