@@ -67,8 +67,8 @@ module Computer(
 				0: InstructionRom = 16'b0_000_0000_0000_0000;			// @0
 				1: InstructionRom = 16'b111_0_110000_010_000;			// D=A :to _D_
 				2: InstructionRom = 16'b111_0_011111_011_000;			// D+1 :to _DM
-				25000: InstructionRom = 16'b0_000_0000_0000_0010;		// @2
-				25001: InstructionRom = 16'b111_0_101010_000_111;		// 0;JMP 
+				31250: InstructionRom = 16'b0_000_0000_0000_0010;		// @2
+				31251: InstructionRom = 16'b111_0_101010_000_111;		// 0;JMP 
 				default : InstructionRom = 16'b0_000_0000_0000_0000;	// NOP(@0)
 			endcase
 		end
