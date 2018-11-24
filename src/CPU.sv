@@ -75,7 +75,6 @@ module CPU(
 
 	// C命令でdestのd3がOn（Memory[A]に計算結果を格納する命令）の場合は、CPU出力 writeM をOn（メモリ書き込みをOn）
 	And andWriteM(.a(inst[15]), .b(inst[3]), .out(writeM));
-	//assign writeM = inst[15] && inst[3];
 
 	//
 	// プログラムカウンタの制御
@@ -83,36 +82,38 @@ module CPU(
 
 	// C命令でj3がOn（out > 0）が命令されているか？
 	wire isPositive, isNotZero;
-	assign isPositive = ~aluOutIsNega;
-	assign isNotZero = ~aluOutIsZero;
+	Not notIsPositive(.in(aluOutIsNega), .out(isPositive));
+	Not notIsNotZero(.in(aluOutIsZero), .out(isNotZero));
 	wire instJgt, isGt;
-	assign instJgt = inst[15] && inst[0];
-	assign isGt = isPositive && isNotZero;
+	And andInstJgt(.a(inst[15]), .b(inst[0]), .out(instJgt));
+	And andIsGt(.a(isPositive), .b(isNotZero), .out(isGt));
+
 	// PCを書き換えるか判定する為の材料（GT）
 	wire isPcLoadJgt;
-	assign isPcLoadJgt = instJgt && isGt;
+	And andIsPcLoadJgt(.a(instJgt), .b(isGt), .out(isPcLoadJgt));
 
 	// C命令でj2がOn（out == 0）が命令されているか？
 	wire instJeq;
-	assign instJeq = inst[15] && inst[1];
+	And andInstJeq(.a(inst[15]), .b(inst[1]), .out(instJeq));
 	// PCを書き換えるか判定する為の材料（EQ）
 	wire isPcLoadJeq;
-	assign isPcLoadJeq = instJeq && aluOutIsZero;
+	And andIsPcLoadJeq(.a(instJeq), .b(aluOutIsZero), .out(isPcLoadJeq));
 
 	// C命令でj1がOn（out < 0）が命令されているか？
 	wire instJlt;
-	assign instJlt = inst[15] && inst[2];
+	And andInstJlt(.a(inst[15]), .b(inst[2]), .out(instJlt));
+
 	// PCを書き換えるか判定する為の材料（LT）
 	wire isPcLoadJlt;
-	assign isPcLoadJlt = instJlt && aluOutIsNega;
+	And andIsPcLoadJlt(.a(instJlt), .b(aluOutIsNega), .out(isPcLoadJlt));
 
 	// PCを書き換えるか判定する為の材料（GE）
 	wire isPcLoadJGe;
-	assign isPcLoadJGe = isPcLoadJgt || isPcLoadJeq;
+	Or orIsPcLoadJGe(.a(isPcLoadJgt), .b(isPcLoadJeq), .out(isPcLoadJGe));
 
 	// PCを書き換えるか
 	wire isPcLoad;
-	assign isPcLoad = isPcLoadJlt || isPcLoadJGe;
+	Or orIsPcLoad(.a(isPcLoadJlt), .b(isPcLoadJGe), .out(isPcLoad));
 
 	// プログラムカウンタ
 	wire[15:0] pcOut;
