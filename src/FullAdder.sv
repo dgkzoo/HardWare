@@ -4,7 +4,7 @@ module FullAdder(
 	input wire a,		// 値１
 	input wire b,		// 値２
 	input wire c,		// 値３
-	output wire sum,		// 結果
+	output wire sum,	// 結果
 	output wire carry);	// キャリーフラグ
  
 	wire half_sum1;
@@ -15,6 +15,6 @@ module FullAdder(
 	HalfAdder ha1(a, b, half_sum1, half_carry1);
 	HalfAdder ha2(half_sum1, c, half_sum2, half_carry2);
 
-	assign sum = (half_sum1 ^ c);
-	assign carry = half_carry1 | half_carry2;
+	Xor xor1(.a(half_sum1), .b(c), .out(sum));
+	_Or or1(.a(half_carry1), .b(half_carry2), .out(carry));
 endmodule
