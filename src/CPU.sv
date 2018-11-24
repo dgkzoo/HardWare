@@ -33,7 +33,8 @@ module CPU(
 	// A命令の場合か、C命令のdestのd1がOnの場合（Aレジスタに計算結果を格納する命令の場合）は、Aレジスタにロードさせる
 	wire isAload;
 	wire[15:0] aOut;
-	assign isAload = isAinst || inst[5];
+	Or orIsAload(.a(isAinst), .b(inst[5]), .out(isAload));
+	//assign isAload = isAinst || inst[5];
 	Register a_reg(.clk(clk), .in(toA), .load(isAload), .out(aOut));
 
 	// Aレジスタの出力は addressM としてCPUから出力
