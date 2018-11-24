@@ -9,8 +9,8 @@ module CPU_tb();
 	reg reset;
 	reg[15:0] outM;
 	reg writeM;
-	reg[14:0] addressM;
-	reg[14:0] pc;
+	reg[15:0] addressM;
+	reg[15:0] pc;
 
 	parameter RATE = 10;
 
