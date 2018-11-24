@@ -27,7 +27,7 @@ module CPU(
 
 	// A命令の場合は、そのアドレス（かデータ）、C命令の場合はALUの出力を toA に配線。
 	wire[15:0] toA;
-	assign toA = isAinst == 1 ? inst : aluOut;	// Mux
+	Mux16 mux16toA(.a(aluOut), .b(inst), .sel(isAinst), .out(toA));
 
 	// Aレジスタへの入力信号
 	// A命令の場合か、C命令のdestのd1がOnの場合（Aレジスタに計算結果を格納する命令の場合）は、Aレジスタにロードさせる
@@ -44,7 +44,7 @@ module CPU(
 	wire isCompAon;
 	wire[15:0] AM;
 	_And andIsCompAon(.a(inst[15]), .b(inst[12]), .out(isCompAon));
-	assign AM = isCompAon == 0 ? aOut : inM;	// Mux
+	Mux16 mux16toA(.a(aOut), .b(inM), .sel(isCompAon), .out(AM));
 
 	//
 	// ALU
