@@ -13,7 +13,7 @@ module ALU(
 	output wire zr,			// out=0 の場合にtrue
 	output wire ng);			// out<0 の場合にtrue
 
-	wire [15:0] work_x1, work_x2;
+	wire [15:0] workX1, work_x2;
 	wire [15:0] work_y1, work_y2;
 	wire [15:0] work_out1, work_add16;
 
@@ -22,8 +22,12 @@ module ALU(
 		.b(work_y2),
 		.out(work_add16));
 
-	assign work_x1 = zx ? 1'b0 : x;
-	assign work_x2 = nx ? ~work_x1 : work_x1;
+	assign workX1 = zx ? 16'b0 : x;
+
+	wire[15:0] notX1;
+	Not16 not16forX2(.in(workX1), .out(notX1));
+	assign work_x2 = nx ? notX1 : workX1;
+	
 	assign work_y1 = zy ? 1'b0 : y;
 	assign work_y2 = ny ? ~work_y1 : work_y1;
 	assign work_out1 = f ? work_add16 : work_x2 & work_y2;
