@@ -44,7 +44,7 @@ module CPU(
 	wire isCompAon;
 	wire[15:0] AM;
 	_And andIsCompAon(.a(inst[15]), .b(inst[12]), .out(isCompAon));
-	Mux16 mux16toA(.a(aOut), .b(inM), .sel(isCompAon), .out(AM));
+	Mux16 mux16AM(.a(aOut), .b(inM), .sel(isCompAon), .out(AM));
 
 	//
 	// ALU

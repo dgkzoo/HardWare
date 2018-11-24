@@ -11,7 +11,7 @@ module PC(
 	reg[15:0] counter = 0;
 	wire[15:0] added;
 
-	Add16 add16(.a(counter), .b(16'd1), .out(added));
+	Inc16 inc16(.a(counter), .out(added));
 
 	always @(posedge clk) begin
 		if(reset == 1'b1) begin
