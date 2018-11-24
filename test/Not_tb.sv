@@ -6,7 +6,7 @@ module Not_tb();
 
 	parameter RATE = 1;
 
-	Not not1(
+	_Not not1(
 		.in(in),
 		.out(out)
 	);

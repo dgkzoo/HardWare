@@ -8,7 +8,7 @@ module Xor_tb();
 
 	parameter RATE = 1;
 
-	Xor xor1(
+	_Xor xor1(
 		.a(a),
 		.b(b),
 		.out(out)

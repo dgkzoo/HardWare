@@ -12,5 +12,5 @@ module _And(
 
 	wire nandOut;
 	_Nand nand1(.a(a), .b(b), .out(nandOut));
-	Not not1(.in(nandOut), .out(out));
+	_Not not1(.in(nandOut), .out(out));
 endmodule

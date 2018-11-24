@@ -12,8 +12,8 @@ module _Or(
 
 	wire not1Out, not2Out, andOut;
 
-	Not not1(.in(a), .out(not1Out));
-	Not not2(.in(b), .out(not2Out));
+	_Not not1(.in(a), .out(not1Out));
+	_Not not2(.in(b), .out(not2Out));
 	_And and1(.a(not1Out), .b(not2Out), .out(andOut));
-	Not not3(.in(andOut), .out(out));
+	_Not not3(.in(andOut), .out(out));
 endmodule

@@ -5,7 +5,7 @@
  * dgkzoo
  */
 `default_nettype none
-module Not(
+module _Not(
 	input wire in,
 	output wire out);
 

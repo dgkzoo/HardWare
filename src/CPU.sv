@@ -82,8 +82,8 @@ module CPU(
 
 	// C命令でj3がOn（out > 0）が命令されているか？
 	wire isPositive, isNotZero;
-	Not notIsPositive(.in(aluOutIsNega), .out(isPositive));
-	Not notIsNotZero(.in(aluOutIsZero), .out(isNotZero));
+	_Not notIsPositive(.in(aluOutIsNega), .out(isPositive));
+	_Not notIsNotZero(.in(aluOutIsZero), .out(isNotZero));
 	wire instJgt, isGt;
 	_And andInstJgt(.a(inst[15]), .b(inst[0]), .out(instJgt));
 	_And andIsGt(.a(isPositive), .b(isNotZero), .out(isGt));

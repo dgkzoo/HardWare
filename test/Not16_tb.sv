@@ -6,7 +6,7 @@ module Not16_tb();
 
 	parameter RATE = 1;
 
-	Not16 not16(
+	_Not16 not16(
 		.in(in),
 		.out(out)
 	);
