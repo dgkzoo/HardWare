@@ -1,4 +1,4 @@
-// 16ビット4入力デマルチプレクサ
+// 1ビット4入力デマルチプレクサ
 `default_nettype none
 module DMux4Way(
 	input wire in,			// in
