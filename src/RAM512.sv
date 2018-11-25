@@ -4,7 +4,7 @@ module RAM512(
 	input wire clk,				// clk
 	input wire[15:0] in,		// in値
 	input wire load,			// write enable
-	input wire[9:0] address,	// アドレス
+	input wire[8:0] address,	// アドレス
 	output wire[15:0] out);		// out
 
 	// アドレスをセレクタとして、load値をload0～7に振り分ける

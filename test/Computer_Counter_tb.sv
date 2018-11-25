@@ -6,10 +6,10 @@
 module Computer_Counter_tb();
 	reg clk = 0;
 	reg reset = 0;
-	wire[15:0] debug_pc;
+	wire[14:0] debug_pc;
 	wire[15:0] debug_inst;
 	wire[15:0] debug_outM;
-	wire[15:0] debug_addressM;
+	wire[14:0] debug_addressM;
 	wire debug_writeM;
 
 	parameter RATE = 2;

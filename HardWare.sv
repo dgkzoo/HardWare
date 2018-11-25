@@ -15,7 +15,7 @@ module HardWare(
 	wire[14:0] debug_pc;
 	wire[15:0] debug_inst;
 	wire[15:0] debug_outM;
-	wire[15:0] debug_addressM;
+	wire[14:0] debug_addressM;
 	wire debug_writeM;
 
 	// コンピュータ本体

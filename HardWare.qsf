@@ -89,7 +89,10 @@ set_location_assignment PIN_D19 -to hled3[5]
 set_location_assignment PIN_G15 -to hled3[6]
 set_location_assignment PIN_G16 -to hled3[7]
 set_location_assignment PIN_G21 -to clk
-set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name SYSTEMVERILOG_FILE src/RAM512.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/RAM64.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/RAM16K.sv
+set_global_assignment -name SYSTEMVERILOG_FILE src/DMux8Way.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/DMux4Way.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/DMux.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/RAM8.sv
@@ -118,3 +121,4 @@ set_global_assignment -name SYSTEMVERILOG_FILE src/HalfAdder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/FullAdder.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/ALU.sv
 set_global_assignment -name SYSTEMVERILOG_FILE src/Add16.sv
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

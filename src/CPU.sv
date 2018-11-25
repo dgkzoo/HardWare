@@ -13,8 +13,8 @@ module CPU(
 	input wire reset,			// reset
 	output wire[15:0] outM,		// メモリ出力
 	output wire writeM,			// M書き込みを行うか
-	output wire[15:0] addressM,	// データメモリ中のMのアドレス
-	output wire[15:0] pc);		// プログラムカウンタ出力
+	output wire[14:0] addressM,	// データメモリ中のMのアドレス
+	output wire[14:0] pc);		// プログラムカウンタ出力
 
 	//
 	// Decode
