@@ -30,7 +30,7 @@ module RAM64(
 	Mux8Way16 mux8(
 		.a(out0), .b(out1), .c(out2), .d(out3),
 		.e(out4), .f(out5), .g(out6), .h(out7),
-		.sel(address[2:0]),
+		.sel(address[5:3]),
 		.out(out));
 
 endmodule
