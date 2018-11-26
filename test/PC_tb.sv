@@ -10,7 +10,7 @@ module PC_tb();
 	reg reset = 0;
 	wire[15:0] out;
 
-	parameter RATE = 10;
+	parameter RATE = 2;
 
 	always #(RATE/2) clk = ~clk;	// Clock Generation
 

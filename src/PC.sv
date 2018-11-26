@@ -8,22 +8,24 @@ module PC(
 	input wire reset,			// reset flg
 	output wire[15:0] out);		// out
 
-	reg[15:0] counter = 0;
-	wire[15:0] added;
+	wire[15:0] regOut, toReg;
+	Register reg1(.clk(clk), .in(toReg), .load(1'b1), .out(out));
+	assign regOut = out;
 
-	Inc16 inc16(.a(counter), .out(added));
+	// インクリメント	
+	wire[15:0] incOut;
+	Inc16 inc16(.a(regOut), .out(incOut));
 
-	always @(posedge clk) begin
-		if(reset == 1'b1) begin
-			counter <= 16'd0;
+	// inc値により、Register値かインクリメント値かをregOrIncOutに配線
+	wire[15:0] regOrIncOut;
+	Mux16 mux1(.a(regOut), .b(incOut), .sel(inc), .out(regOrIncOut));
 
-		end else if(load == 1'b1) begin
-			counter <= in;
+	// load値により、Reg/Inc値かin値をloadOutに配線
+	wire[15:0] loadOut;
+	Mux16 mux2(.a(regOrIncOut), .b(in), .sel(load), .out(loadOut));
 
-		end else if(inc == 1'b1) begin
-		 	counter <= added;
-		end
-	end
+	// reset値により、loadOutか0かをtoRegに配線
+	// toRegはInc16にフィードバックされる
+	Mux16 mux3(.a(loadOut), .b(16'b0), .sel(reset), .out(toReg));
 
-	assign out = counter;
 endmodule
