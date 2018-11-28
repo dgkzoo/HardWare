@@ -12,10 +12,8 @@ module HardWare(
 	output [7:0] hled2,
 	output [7:0] hled3
 );
-	wire[14:0] debug_pc;
-	wire[15:0] debug_inst;
-	wire[15:0] debug_outM;
-	wire[14:0] debug_addressM;
+	wire[14:0] debug_pc, debug_addressM;
+	wire[15:0] debug_inst, debug_outM;
 	wire debug_writeM;
 
 	// コンピュータ本体

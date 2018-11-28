@@ -16,38 +16,36 @@ module CPU(
 	output wire[14:0] addressM,	// データメモリ中のMのアドレス
 	output wire[14:0] pc);		// プログラムカウンタ出力
 
-	//
-	// Decode
-	//
-	
-	// A命令か？
+	// ①A命令か？
 	wire isAinst;
-	wire[15:0] aluOut;
-	Mux muxIsAinst(.a(1'b1), .b(1'b0), .sel(inst[15]), .out(isAinst));
+	Not notIsAinst(.in(inst[15]), .out(isAinst));
 
-	// A命令の場合は、そのアドレス（かデータ）、C命令の場合はALUの出力を toA に配線。
-	wire[15:0] toA;
+	// ②A命令の場合は、そのアドレス（かデータ）、C命令の場合はALUの出力を toA に配線。
+	wire[15:0] aluOut, toA;
 	Mux16 mux16toA(.a(aluOut), .b(inst), .sel(isAinst), .out(toA));
 
-	// Aレジスタへの入力信号
-	// A命令の場合か、C命令のdestのd1がOnの場合（Aレジスタに計算結果を格納する命令の場合）は、Aレジスタにロードさせる
+	// ③A命令の場合か、C命令のdestのd1がOnの場合
+	//  （Aレジスタに計算結果を格納する命令の場合）は、Aレジスタにロードさせる
 	wire isAload;
 	wire[15:0] aOut;
 	_Or orIsAload(.a(isAinst), .b(inst[5]), .out(isAload));
-	Register a_reg(.clk(clk), .in(toA), .load(isAload), .out(aOut));
 
-	// Aレジスタの出力は addressM としてCPUから出力
+	// ④Aレジスタ
+	Register aReg(.clk(clk), .in(toA), .load(isAload), .out(aOut));
+
+	// ⑤Aレジスタの出力は addressM としてCPUから出力
 	assign addressM[14:0] = aOut[14:0];
 
-	// ALUへの入力信号の準備
-	// C命令でcompのaがOnの場合、メモリ入力（inM）の値、それ以外はAレジスタの値をALUへの入力とする
+	// ⑥ALUへの入力信号の準備
+	// C命令でcompのaがOnの場合、メモリ入力（inM）の値、
+	// それ以外はAレジスタの値をALUへの入力とする
 	wire isCompAon;
 	wire[15:0] AM;
 	_And andIsCompAon(.a(inst[15]), .b(inst[12]), .out(isCompAon));
 	Mux16 mux16AM(.a(aOut), .b(inM), .sel(isCompAon), .out(AM));
 
 	//
-	// ALU
+	// ⑦ALU
 	//
 	wire aluOutIsZero, aluOutIsNega;
 	wire[15:0] d_out;
@@ -64,23 +62,25 @@ module CPU(
 		.zr(aluOutIsZero),	// out==0 の時On
 		.ng(aluOutIsNega));	// out<0 の時On
 
-	// ALUの出力は CPU出力の outM としても出力する
+	// ⑧ALUの出力は CPU出力の outM としても出力する
 	assign outM = aluOut;
 
-	// Dレジスタ
-	// C命令でdestのd2がOn（Dレジスタに計算結果を格納する命令）の場合は、ALUの出力をDレジスタにロードさせる
+	// ⑨Dレジスタ
+	// C命令でdestのd2がOn（Dレジスタに計算結果を格納する命令）の場合は、
+	// ALUの出力をDレジスタにロードさせる
 	wire isDload;
 	_And andIsDload(.a(inst[15]), .b(inst[4]), .out(isDload));
-	Register d_reg(.clk(clk), .in(aluOut), .load(isDload), .out(d_out));
+	Register dReg(.clk(clk), .in(aluOut), .load(isDload), .out(d_out));
 
-	// C命令でdestのd3がOn（Memory[A]に計算結果を格納する命令）の場合は、CPU出力 writeM をOn（メモリ書き込みをOn）
+	// ⑩C命令でdestのd3がOn（Memory[A]に計算結果を格納する命令）の場合は、
+	// CPU出力 writeM をOn（メモリ書き込みをOn）
 	_And andWriteM(.a(inst[15]), .b(inst[3]), .out(writeM));
 
 	//
 	// プログラムカウンタの制御
 	//
 
-	// C命令でj3がOn（out > 0）が命令されているか？
+	// ⑪C命令でj3がOn（out > 0）が命令されているか？
 	wire isPositive, isNotZero;
 	_Not notIsPositive(.in(aluOutIsNega), .out(isPositive));
 	_Not notIsNotZero(.in(aluOutIsZero), .out(isNotZero));
@@ -88,34 +88,34 @@ module CPU(
 	_And andInstJgt(.a(inst[15]), .b(inst[0]), .out(instJgt));
 	_And andIsGt(.a(isPositive), .b(isNotZero), .out(isGt));
 
-	// PCを書き換えるか判定する為の材料（GT）
+	// ⑫PCを書き換えるか判定する為の材料（GT）
 	wire isPcLoadJgt;
 	_And andIsPcLoadJgt(.a(instJgt), .b(isGt), .out(isPcLoadJgt));
 
-	// C命令でj2がOn（out == 0）が命令されているか？
+	// ⑬C命令でj2がOn（out == 0）が命令されているか？
 	wire instJeq;
 	_And andInstJeq(.a(inst[15]), .b(inst[1]), .out(instJeq));
-	// PCを書き換えるか判定する為の材料（EQ）
+	// ⑭PCを書き換えるか判定する為の材料（EQ）
 	wire isPcLoadJeq;
 	_And andIsPcLoadJeq(.a(instJeq), .b(aluOutIsZero), .out(isPcLoadJeq));
 
-	// C命令でj1がOn（out < 0）が命令されているか？
+	// ⑮C命令でj1がOn（out < 0）が命令されているか？
 	wire instJlt;
 	_And andInstJlt(.a(inst[15]), .b(inst[2]), .out(instJlt));
 
-	// PCを書き換えるか判定する為の材料（LT）
+	// ⑯PCを書き換えるか判定する為の材料（LT）
 	wire isPcLoadJlt;
 	_And andIsPcLoadJlt(.a(instJlt), .b(aluOutIsNega), .out(isPcLoadJlt));
 
-	// PCを書き換えるか判定する為の材料（GE）
+	// ⑰PCを書き換えるか判定する為の材料（GE）
 	wire isPcLoadJGe;
 	_Or orIsPcLoadJGe(.a(isPcLoadJgt), .b(isPcLoadJeq), .out(isPcLoadJGe));
 
-	// PCを書き換えるか
+	// ⑱PCを書き換えるか
 	wire isPcLoad;
 	_Or orIsPcLoad(.a(isPcLoadJlt), .b(isPcLoadJGe), .out(isPcLoad));
 
-	// プログラムカウンタ
+	// ⑲プログラムカウンタ
 	wire[15:0] pcOut;
 	PC pc1(.clk(clk), .in(aOut), .load(isPcLoad), .inc(1'b1), .reset(reset), .out(pcOut));
 	assign pc[14:0] = pcOut[14:0];
