@@ -1,4 +1,9 @@
-// 1ビット2入力デマルチプレクサ
+/**
+ * # 1ビット2入力デマルチプレクサ
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module DMux(
 	input wire in,		// in

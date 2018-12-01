@@ -1,4 +1,9 @@
-// 1ビット8入力デマルチプレクサ
+/**
+ * # 1ビット8入力デマルチプレクサ
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module DMux8Way(
 	input wire in,			// in

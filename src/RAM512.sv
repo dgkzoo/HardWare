@@ -1,4 +1,9 @@
-// RAM512
+/**
+ * # RAM512
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module RAM512(
 	input wire clk,				// clk

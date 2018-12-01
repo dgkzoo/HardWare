@@ -1,4 +1,9 @@
-// 全加算器
+/**
+ * # 全加算器
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module FullAdder(
 	input wire a,		// 値１

@@ -1,4 +1,9 @@
-// 加算器16
+/**
+ * # 加算器16
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module Add16(
 	input wire[15:0] a,		// 値１

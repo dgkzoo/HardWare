@@ -1,4 +1,9 @@
-// ALU
+/**
+ * # ALU
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module ALU(
 	input wire[15:0] x,		// 値x

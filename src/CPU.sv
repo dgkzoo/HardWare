@@ -1,9 +1,10 @@
 /**
- * @brief CPU<br>
+ * # CPU
  * レジスタはAとDのレジスタだけ。
- * 命令に従い、レジスタへの値保持、ALUでの計算、計算結果の出力を行う。
+ * instructionに従い、レジスタへの値保持、ALUでの計算、計算結果の出力を行う。
  *
- * @author dgkzoo
+ * ## author
+ * dgkzoo
  */
 `default_nettype none
 module CPU(

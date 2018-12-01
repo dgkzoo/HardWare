@@ -1,4 +1,9 @@
-// 16ビット4入力マルチプレクサ
+/**
+ * # 16ビット4入力マルチプレクサ
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module Mux4Way16(
 	input wire[15:0] a,			// 値a

@@ -1,4 +1,9 @@
-// インクリメンタ16
+/**
+ * # インクリメンタ
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module Inc16(
 	input wire[15:0] a,		// 値

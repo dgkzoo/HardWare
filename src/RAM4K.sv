@@ -1,4 +1,9 @@
-// RAM4K
+/**
+ * # RAM4K
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module RAM4K(
 	input wire clk,				// clk

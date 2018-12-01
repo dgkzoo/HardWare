@@ -1,4 +1,9 @@
-// 半加算器
+/**
+ * # 半加算器
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module HalfAdder(
 	input wire a,		// 値１

@@ -1,4 +1,9 @@
-// マルチプレクサ16
+/**
+ * # 16ビット2入力マルチプレクサ
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module Mux16(
 	input wire[15:0] a,			// 値a

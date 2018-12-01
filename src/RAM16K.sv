@@ -1,4 +1,9 @@
-// RAM16K
+/**
+ * # RAM16K
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module RAM16K(
 	input wire clk,				// clk

@@ -1,4 +1,9 @@
-// 16ビットカウンタ
+/**
+ * # 16ビットカウンタ
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module PC(
 	input wire clk,				// clk

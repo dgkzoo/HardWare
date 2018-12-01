@@ -1,4 +1,9 @@
-// 7 segment decoder
+/**
+ * # 7セグLED向けのデコード
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module HexSegDec(
 	input wire[3:0] data,

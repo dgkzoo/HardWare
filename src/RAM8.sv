@@ -1,4 +1,9 @@
-// RAM8
+/**
+ * # RAM 8ビット
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module RAM8(
 	input wire clk,				// clk

@@ -1,4 +1,9 @@
-// RAM64
+/**
+ * # RAM64
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module RAM64(
 	input wire clk,				// clk

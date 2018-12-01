@@ -1,4 +1,9 @@
-// Bit
+/**
+ * # Bit
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module Bit(
 	input wire clk,			// clk

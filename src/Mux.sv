@@ -1,4 +1,9 @@
-// マルチプレクサ
+/**
+ * # 1ビット2入力マルチプレクサ
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module Mux(
 	input wire a,			// 値a

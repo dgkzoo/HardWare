@@ -1,5 +1,5 @@
 /**
- * # Not16
+ * # 16ビットNot
  *
  * ## author
  * dgkzoo

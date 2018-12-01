@@ -1,4 +1,9 @@
-// Register
+/**
+ * # 16ビットRegister
+ *
+ * ## author
+ * dgkzoo
+ */
 `default_nettype none
 module Register(
 	input wire clk,			// clk

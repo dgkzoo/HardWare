@@ -1,8 +1,9 @@
 /**
- * @brief コンピュータ<br>
+ * # コンピュータ
  * CPUとプログラムROM、RAMを持つ
  *
- * @author dgkzoo
+ * ## author
+ * dgkzoo
  */
 `default_nettype none
 module Computer(
