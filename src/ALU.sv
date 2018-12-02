@@ -18,49 +18,50 @@ module ALU(
 	output wire zr,			// out=0 の場合にtrue
 	output wire ng);		// out<0 の場合にtrue
 
-	wire [15:0] workX1, workX2;
-	wire [15:0] workY1, workY2;
-	wire [15:0] workOut1, workAdd16;
-
 	// 入力xをゼロにする
-	assign workX1 = zx ? 16'b0 : x;
+	wire [15:0] zxX;
+	assign zxX = zx ? 16'b0 : x;
 
 	// 入力xを反転する
-	wire[15:0] notX1;
-	Not16 not16forX2(.in(workX1), .out(notX1));
-	assign workX2 = nx ? notX1 : workX1;
+	wire[15:0] notZxX;
+	Not16 not16x(.in(zxX), .out(notZxX));
+	wire[15:0] nxX;
+	assign nxX = nx ? notZxX : zxX;
 	
 	// 入力yをゼロにする
-	assign workY1 = zy ? 1'b0 : y;
+	wire [15:0] zyY;
+	assign zyY = zy ? 1'b0 : y;
 
 	// 入力yを反転する
-	wire[15:0] notY1;
-	Not16 not16forY2(.in(workY1), .out(notY1));
-	assign workY2 = ny ? notY1 : workY1;
+	wire[15:0] notZyY;
+	Not16 not16y(.in(zyY), .out(notZyY));
+	wire[15:0] nyY;
+	assign nyY = ny ? notZyY : zyY;
 
 	// 関数コード（1：加算、0：And演算）
 	// 1：加算　用
+	wire [15:0] workAdd16;
 	Add16 add16(
-		.a(workX2),
-		.b(workY2),
+		.a(nxX),
+		.b(nyY),
 		.out(workAdd16));
 
 	// 0：And演算 用
 	wire[15:0] andXY;
-	And16 and16(.a(workX2), .b(workY2), .out(andXY));
+	And16 and16(.a(nxX), .b(nyY), .out(andXY));
 
 	// 関数実行
-	assign workOut1 = f ? workAdd16 : andXY;
+	wire[15:0] fOut;
+	assign fOut = f ? workAdd16 : andXY;
 
 	// 出力outを反転する
-	wire[15:0] workOut1Not;
-	Not16 not16forOut(.in(workOut1), .out(workOut1Not));
-	assign out = no ? workOut1Not : workOut1;
+	wire[15:0] fNotOut;
+	Not16 not16forOut(.in(fOut), .out(fNotOut));
+	assign out = no ? fNotOut : fOut;
 
 	// out=0 の場合にtrue
 	assign zr = (out == 16'd0) ? 1'b1 : 1'b0;
 
 	// out<0 の場合にtrue
 	assign ng = (out[15] == 1'b1) ? 1'b1 : 1'b0;
-
 endmodule
