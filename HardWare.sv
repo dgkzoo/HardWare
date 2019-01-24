@@ -1,16 +1,24 @@
 /**
- * @brief ハードウェアのトップレベルモジュール
- * @author dgkzoo
+ * # ハードウェア
+ * Qualtus// トップレベルモジュール
+ * 
+ * ## author
+ * dgkzoo
  */
 module HardWare(
-	input clk,
-	input [2:0] btn,
-	input [9:0] sw,
-	output [9:0] led,
-	output [7:0] hled0,
-	output [7:0] hled1,
-	output [7:0] hled2,
-	output [7:0] hled3
+	input wire clk,
+	input wire[2:0] btn,
+	input wire[9:0] sw,
+	output wire[9:0] led,
+	output wire[7:0] hled0,
+	output wire[7:0] hled1,
+	output wire[7:0] hled2,
+	output wire[7:0] hled3,
+	output wire[3:0] vga_r,	// VGA R
+	output wire[3:0] vga_g,	// VGA G
+	output wire[3:0] vga_b,	// VGA B
+	output wire vga_hs,		// VGA horizontal signal
+	output wire vga_vs		// VGA vertical signal
 );
 	wire[14:0] debug_pc, debug_addressM;
 	wire[15:0] debug_inst, debug_outM;
@@ -26,6 +34,15 @@ module HardWare(
 		.debug_addressM(debug_addressM),
 		.debug_outM(debug_outM),
 		.debug_writeM(debug_writeM)
+	);
+
+	Vga vga(
+		.clk(clk),
+		.vga_r(vga_r),
+		.vga_g(vga_g),
+		.vga_b(vga_b),
+		.vga_hs(vga_hs),
+		.vga_vs(vga_vs)
 	);
 
 	// カウンタを動かすための実装
