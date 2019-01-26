@@ -20,9 +20,9 @@ module HardWare(
 	output wire vga_hs,		// VGA horizontal signal
 	output wire vga_vs		// VGA vertical signal
 );
-	wire[14:0] debug_pc, debug_addressM;
-	wire[15:0] debug_inst, debug_outM;
-	wire debug_writeM;
+	wire[14:0] debug_pc, addressM;
+	wire[15:0] debug_inst, outM;
+	wire writeM;
 
 	// コンピュータ本体
 	Computer computer(
@@ -31,13 +31,14 @@ module HardWare(
 		// 以下、デバッグ用の配線
 		.debug_pc(debug_pc),
 		.debug_inst(debug_inst),
-		.debug_addressM(debug_addressM),
-		.debug_outM(debug_outM),
-		.debug_writeM(debug_writeM)
+		.addressM(addressM),
+		.outM(outM),
+		.writeM(writeM)
 	);
 
 	Vga vga(
 		.clk(clk),
+//		.vram(vram),
 		.vga_r(vga_r),
 		.vga_g(vga_g),
 		.vga_b(vga_b),
@@ -45,12 +46,35 @@ module HardWare(
 		.vga_vs(vga_vs)
 	);
 
+	// Screen領域のメモリ書き込みを出力
+	wire[15:0] vram_data;
+	wire vram_wren;
+	always @(posedge addressM) begin
+		if(writeM && 16'd16384 <= addressM && addressM < 16'd24575) begin
+			vram_data <= outM;
+			vram_wren <= 1'b1;
+		end else begin
+			vram_wren <= 1'b0;
+		end
+	end
+
+	// VRAM
+	wire [15:0] rdata;
+	VRAM VRAM_inst(
+		.address(addressM - 16'd16384),
+		.clock(clk),
+		.data(vram_data),
+		.wren(vram_wren),
+		.q(rdata)
+	);
+
 	// カウンタを動かすための実装
 	reg[15:0] count = 0;
 	always @(posedge clk) begin
 		// メモリ書き込みがHighの場合にoutM値をcountに保持
-		if (debug_writeM == 1'b1) begin
-			count <= debug_outM;
+		if (writeM == 1'b1) begin
+			count <= outM;
+			//vram_data <= outM;
 		end
 	end
 

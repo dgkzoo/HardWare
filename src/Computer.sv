@@ -7,20 +7,21 @@
  */
 `default_nettype none
 module Computer(
-	input wire clk,						// clk
-	input wire reset,					// reset
-	output wire[14:0] debug_pc,			// デバッグ用・PC
-	output wire[15:0] debug_inst,		// デバッグ用・inst
-	output wire[14:0] debug_addressM,	// デバッグ用・addressM
-	output wire[15:0] debug_outM,		// デバッグ用・outM
-	output wire debug_writeM			// デバッグ用・writeM
+	input wire clk,					// clk
+	input wire reset,				// reset
+	output wire[14:0] debug_pc,		// デバッグ用・PC
+	output wire[15:0] debug_inst,	// デバッグ用・inst
+	output wire[14:0] addressM,		// メモリアドレス
+	output wire[15:0] outM,			// メモリ出力値
+	output wire writeM				// メモリwrite enable
 	);
 
 	reg[15:0] inst;
-	wire[15:0] outM, inM;
+//	wire[15:0] outM, inM;
+	wire[15:0] inM;
 	wire[14:0] pc;
-	wire[14:0] addressM;
-	wire writeM;
+//	wire[14:0] addressM;
+//	wire writeM;
 
 	// プログラムカウンタが指す命令をROMから取得する
 	always @(posedge clk) begin
@@ -78,7 +79,7 @@ module Computer(
 	// for debug
 	assign debug_pc = pc;
 	assign debug_inst = inst;
-	assign debug_addressM = addressM;
-	assign debug_outM = outM;
-	assign debug_writeM = writeM;
+	// assign debug_addressM = addressM;
+	// assign debug_outM = outM;
+	// assign debug_writeM = writeM;
 endmodule

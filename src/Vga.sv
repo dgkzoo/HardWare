@@ -7,6 +7,7 @@
 `default_nettype none
 module Vga(
     input wire clk,
+//    input wire[640*480-1:0] vram,
     output wire[3:0] vga_r,
     output wire[3:0] vga_g,
     output wire[3:0] vga_b,
@@ -28,7 +29,7 @@ module Vga(
         if(hs_cnt == 10'd799) begin
             hs_cnt = 10'd0;
         end else begin
-            hs_cnt = hs_cnt + 1;
+            hs_cnt = hs_cnt + 9'd1;
         end
     end
 
@@ -53,7 +54,7 @@ module Vga(
         if(vs_cnt == 10'd520)
             vs_cnt = 10'd0;
         else
-            vs_cnt = vs_cnt + 1;
+            vs_cnt = vs_cnt + 9'd1;
     end
 
     // v-sync
@@ -87,5 +88,8 @@ module Vga(
     assign vga_r = (i_hdisp && i_vdisp && rgb[0]) ? 4'hf : 4'd0;
     assign vga_g = (i_hdisp && i_vdisp && rgb[1]) ? 4'hf : 4'd0;
     assign vga_b = (i_hdisp && i_vdisp && rgb[2]) ? 4'hf : 4'd0;
+    // assign vga_r = (i_hdisp && i_vdisp) ? vram_data[3:0] : 4'd0;
+    // assign vga_g = (i_hdisp && i_vdisp) ? vram_data[7:4] : 4'd0;
+    // assign vga_b = (i_hdisp && i_vdisp) ? vram_data[11:8] : 4'd0;
 
 endmodule
