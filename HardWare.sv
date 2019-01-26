@@ -38,9 +38,10 @@ module HardWare(
 
 	Vga vga(
 		.clk(clk),
-		.vram_write_addr(addressM - 16'd16384),
+//		.vram_write_addr(addressM - 16'd16384),
+		.vram_write_addr(test_adrress),
 		.vram_write_data(vram_data),
-		.vram_write_en(vram_wren),
+		.vram_write_en(vram_write_en),
 		.vga_r(vga_r),
 		.vga_g(vga_g),
 		.vga_b(vga_b),
@@ -48,23 +49,31 @@ module HardWare(
 		.vga_vs(vga_vs)
 	);
 
+	reg[15:0] test_adrress;
+    always @(posedge clk) begin
+        if(test_adrress == 16'd420000)
+            test_adrress <= 16'd0;
+        else
+            test_adrress <= test_adrress + 16'd1;
+    end
+
 	// Screen領域のメモリ書き込みを出力
 	wire[15:0] vram_data;
-	wire vram_wren;
+	wire vram_write_en;
 	// always @(posedge addressM) begin
 	// 	if(writeM && 16'd16384 <= addressM && addressM < 16'd24575) begin
 	// 		vram_data <= outM;
-	// 		vram_wren <= 1'b1;
+	// 		vram_write_en <= 1'b1;
 	// 	end else begin
-	// 		vram_wren <= 1'b0;
+	// 		vram_write_en <= 1'b0;
 	// 	end
 	// end
 	always @(posedge clk) begin
 		if (writeM == 1'b1) begin
 			vram_data <= outM;
-			vram_wren <= 1'b1;
+			vram_write_en <= 1'b1;
 		end else begin
-			vram_wren <= 1'b0;
+			vram_write_en <= 1'b0;
 		end
 	end
 
@@ -75,7 +84,7 @@ module HardWare(
 // //		.address_a((addressM - 16'd16384) / 16'd16),
 // 		.address_a(16'd0),
 // 		.data_a(vram_data),
-// 		.wren_a(vram_wren),
+// 		.wren_a(vram_write_en),
 // 		.q_a(rdata)
 // 	);
 
