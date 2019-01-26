@@ -38,7 +38,9 @@ module HardWare(
 
 	Vga vga(
 		.clk(clk),
-//		.vram(vram),
+		.vram_write_addr(addressM - 16'd16384),
+		.vram_write_data(vram_data),
+		.vram_write_en(vram_wren),
 		.vga_r(vga_r),
 		.vga_g(vga_g),
 		.vga_b(vga_b),
@@ -49,8 +51,16 @@ module HardWare(
 	// Screen領域のメモリ書き込みを出力
 	wire[15:0] vram_data;
 	wire vram_wren;
-	always @(posedge addressM) begin
-		if(writeM && 16'd16384 <= addressM && addressM < 16'd24575) begin
+	// always @(posedge addressM) begin
+	// 	if(writeM && 16'd16384 <= addressM && addressM < 16'd24575) begin
+	// 		vram_data <= outM;
+	// 		vram_wren <= 1'b1;
+	// 	end else begin
+	// 		vram_wren <= 1'b0;
+	// 	end
+	// end
+	always @(posedge clk) begin
+		if (writeM == 1'b1) begin
 			vram_data <= outM;
 			vram_wren <= 1'b1;
 		end else begin
@@ -58,15 +68,16 @@ module HardWare(
 		end
 	end
 
-	// VRAM
-	wire [15:0] rdata;
-	VRAM VRAM_inst(
-		.address(addressM - 16'd16384),
-		.clock(clk),
-		.data(vram_data),
-		.wren(vram_wren),
-		.q(rdata)
-	);
+// 	// VRAM
+// 	wire [15:0] rdata;
+// 	VRAM VRAM_inst(
+// 		.clock(vga_clk),
+// //		.address_a((addressM - 16'd16384) / 16'd16),
+// 		.address_a(16'd0),
+// 		.data_a(vram_data),
+// 		.wren_a(vram_wren),
+// 		.q_a(rdata)
+// 	);
 
 	// カウンタを動かすための実装
 	reg[15:0] count = 0;
@@ -83,6 +94,10 @@ module HardWare(
 	HexSegDec hsd1(count[7:4], hled1);
 	HexSegDec hsd2(count[11:8], hled2);
 	HexSegDec hsd3(count[15:12], hled3);
+	// HexSegDec hsd0(rdata[3:0], hled0);
+	// HexSegDec hsd1(rdata[7:4], hled1);
+	// HexSegDec hsd2(rdata[11:8], hled2);
+	// HexSegDec hsd3(rdata[15:12], hled3);
 
 	assign led = 0;
 endmodule

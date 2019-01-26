@@ -7,7 +7,9 @@
 `default_nettype none
 module Vga(
     input wire clk,
-//    input wire[640*480-1:0] vram,
+    input wire[15:0] vram_write_addr,
+    input wire[15:0] vram_write_data,
+    input wire vram_write_en,
     output wire[3:0] vga_r,
     output wire[3:0] vga_g,
     output wire[3:0] vga_b,
@@ -73,6 +75,27 @@ module Vga(
             i_vdisp = 1'b0;
     end
 
+    // VGA X,Y
+    wire[9:0] vga_x, vga_y;
+    wire[15:0] read_addr;
+    assign vga_x = hs_cnt - 10'd145;
+    assign vga_y = vs_cnt - 10'd32;
+    assign read_addr = (vga_y * 480) + vga_x;
+
+    // VRAM
+    wire [15:0] px;
+    VRAM VRAM_inst(
+        .clock(clk),
+        // write
+        .address_a(vram_write_addr),
+        .data_a(vram_write_data),
+        .wren_a(vram_write_en),
+        // read
+        .address_b(read_addr),
+        .wren_b(1'b0),
+        .q_b(px)
+    );
+
     // RGB
     assign rgb = (hs_cnt < 10'd224) ? 3'd0 :
                 (hs_cnt < 10'd304) ? 3'd1 : 
@@ -85,11 +108,11 @@ module Vga(
     // output signal
     assign vga_hs = i_hs;
     assign vga_vs = i_vs;
-    assign vga_r = (i_hdisp && i_vdisp && rgb[0]) ? 4'hf : 4'd0;
-    assign vga_g = (i_hdisp && i_vdisp && rgb[1]) ? 4'hf : 4'd0;
-    assign vga_b = (i_hdisp && i_vdisp && rgb[2]) ? 4'hf : 4'd0;
-    // assign vga_r = (i_hdisp && i_vdisp) ? vram_data[3:0] : 4'd0;
-    // assign vga_g = (i_hdisp && i_vdisp) ? vram_data[7:4] : 4'd0;
-    // assign vga_b = (i_hdisp && i_vdisp) ? vram_data[11:8] : 4'd0;
+    // assign vga_r = (i_hdisp && i_vdisp && rgb[0]) ? 4'hf : 4'd0;
+    // assign vga_g = (i_hdisp && i_vdisp && rgb[1]) ? 4'hf : 4'd0;
+    // assign vga_b = (i_hdisp && i_vdisp && rgb[2]) ? 4'hf : 4'd0;
+    assign vga_r = (i_hdisp && i_vdisp) ? px[3:0] : 4'd0;
+    assign vga_g = (i_hdisp && i_vdisp) ? px[7:4] : 4'd0;
+    assign vga_b = (i_hdisp && i_vdisp) ? px[11:8] : 4'd0;
 
 endmodule
