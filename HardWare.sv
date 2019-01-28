@@ -36,6 +36,7 @@ module HardWare(
 		.writeM(writeM)
 	);
 
+	wire vram_addr = addressM - 16'd16384;
 	Vga vga(
 		.clk(clk),
 //		.vram_write_addr(addressM - 16'd16384),
@@ -51,10 +52,17 @@ module HardWare(
 
 	reg[15:0] test_adrress;
     always @(posedge clk) begin
-        if(test_adrress == 16'd420000)
+        if(test_adrress == 16'd307200)
             test_adrress <= 16'd0;
         else
             test_adrress <= test_adrress + 16'd1;
+	    vram_data <= (test_adrress % 10'd640 <= 10'd80) ? 16'h0000 :
+                (test_adrress % 10'd640  <= 10'd80*2) ? 16'h000F : 
+                (test_adrress % 10'd640  <= 10'd80*3) ? 16'h00F0 : 
+                (test_adrress % 10'd640  <= 10'd80*4) ? 16'h00FF : 
+                (test_adrress % 10'd640  <= 10'd80*5) ? 16'h0F00 : 
+                (test_adrress % 10'd640  <= 10'd80*6) ? 16'h0F0F : 
+                (test_adrress % 10'd640  <= 10'd80*7) ? 16'h0FF0 : 16'h0FFF;
     end
 
 	// Screen領域のメモリ書き込みを出力
@@ -70,23 +78,12 @@ module HardWare(
 	// end
 	always @(posedge clk) begin
 		if (writeM == 1'b1) begin
-			vram_data <= outM;
+//			vram_data <= outM;
 			vram_write_en <= 1'b1;
 		end else begin
-			vram_write_en <= 1'b0;
+			vram_write_en <= 1'b1;
 		end
 	end
-
-// 	// VRAM
-// 	wire [15:0] rdata;
-// 	VRAM VRAM_inst(
-// 		.clock(vga_clk),
-// //		.address_a((addressM - 16'd16384) / 16'd16),
-// 		.address_a(16'd0),
-// 		.data_a(vram_data),
-// 		.wren_a(vram_write_en),
-// 		.q_a(rdata)
-// 	);
 
 	// カウンタを動かすための実装
 	reg[15:0] count = 0;

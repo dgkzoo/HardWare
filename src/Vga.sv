@@ -87,10 +87,10 @@ module Vga(
     // VGA X,Y
     wire[9:0] vga_x, vga_y;
     wire[15:0] read_addr;
-    assign vga_x = hs_cnt - 10'd145;
+    assign vga_x = hs_cnt - 10'd144;
     assign vga_y = vs_cnt - 10'd32;
-    //assign read_addr = (vga_y * 10'd784) + vga_x;
-    assign read_addr = pos;
+    assign read_addr = (vga_y * 10'd480) + vga_x;
+    //assign read_addr = pos;
 
     // VRAM
     wire [15:0] px;
@@ -102,7 +102,6 @@ module Vga(
         .wren_a(vram_write_en),
         // read
         .address_b(read_addr),
-//        .address_b(vram_write_addr),
         .wren_b(1'b0),
         .q_b(px)
     );
