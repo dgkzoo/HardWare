@@ -66,12 +66,75 @@ module Computer(
 				// カウンタ
 				// Dレジスタを約31,250クロックに1回インクリメント
 				// インクリメントDレジスタの値はメモリへの出力値とする
-				0: InstructionRom = 16'b0_000_0000_0000_0000;			// @0
-				1: InstructionRom = 16'b111_0_110000_010_000;			// D=A :to _D_
-				2: InstructionRom = 16'b111_0_011111_011_000;			// D+1 :to _DM
-				31250: InstructionRom = 16'b0_000_0000_0000_0010;		// @2
-				31251: InstructionRom = 16'b111_0_101010_000_111;		// 0;JMP 
+				// 0: InstructionRom = 16'b0_000_0000_0000_0000;			// @0
+				// 1: InstructionRom = 16'b111_0_110000_010_000;			// D=A :to _D_
+				// 2: InstructionRom = 16'b111_0_011111_011_000;			// D+1 :to _DM
+				// 31250: InstructionRom = 16'b0_000_0000_0000_0010;		// @2
+				// 31251: InstructionRom = 16'b111_0_101010_000_111;		// 0;JMP 
+				// default : InstructionRom = 16'b0_000_0000_0000_0000;	// NOP(@0)
+
+				// Rect
+				// 0: InstructionRom = 16'b0_000_0000_0001_0000;	// @16
+				// 1: InstructionRom = 16'b111_1_110000_010_000;	// D=M
+				// 2: InstructionRom = 16'b0_000_0000_0001_0000;	// @counter
+				// 3: InstructionRom = 16'b111_0_001100_001_000;	// M=D
+				// 4: InstructionRom = 16'b0_100_0000_0000_0000;	// @SCREEN 16384
+				// 5: InstructionRom = 16'b111_0_110000_011_000;	// DM=A
+				// 6: InstructionRom = 16'b0_000_0000_0001_0001;	// @address
+				// 7: InstructionRom = 16'b111_0_001100_001_000;	// M=D
+				// 8: InstructionRom = 16'b0_000_0000_0001_0001;	// @address
+				// 9: InstructionRom = 16'b111_1_110000_100_000;	// A=M
+				// 10: InstructionRom = 16'b111_0_111010_001_000;	// M=-1
+				// 11: InstructionRom = 16'b0_000_0000_0001_0001;	// @address
+				// 12: InstructionRom = 16'b111_1_110000_010_000;	// D=M
+				// 13: InstructionRom = 16'b0000001010000000;	// @640
+				// 14: InstructionRom = 16'b111_0_000010_010_000;	// D=D+A
+				// 15: InstructionRom = 16'b0_000_0000_0001_0001;	// @address
+				// 16: InstructionRom = 16'b111_0_001100_001_000;	// M=D
+				// 17: InstructionRom = 16'b0_000_0000_0001_0000;	// @counter
+				// 18: InstructionRom = 16'b111_1_110010_011_000;	// MD=M-1
+				// 19: InstructionRom = 16'b0_000_0000_0000_1010;	// @LOOP
+				// 20: InstructionRom = 16'b111_0_001100_000_001;	// D;JGT
+				// 21: InstructionRom = 16'b0_000_0000_0001_0101;	// @INFINITE_LOOP
+				// 22: InstructionRom = 16'b111_0_101010_000_111;	// 0;JMP
+				// default : InstructionRom = 16'b0_000_0000_0000_0000;	// NOP(@0)
+
+				// rect 縦512
+				0: InstructionRom = 16'b0000001000000000; //@512
+				1: InstructionRom = 16'b1110110000010000; //D=A
+				2: InstructionRom = 16'b0000000000010000; //@counter_v
+				3: InstructionRom = 16'b1110001100001000; //M=D
+				4: InstructionRom = 16'b0100000000000000; //@SCREEN
+				5: InstructionRom = 16'b1110110000010000; //D=A
+				6: InstructionRom = 16'b0000000000010001; //@address
+				7: InstructionRom = 16'b1110001100001000; //M=D
+				8: InstructionRom = 16'b0000000100000000; //@256
+				9: InstructionRom = 16'b1110110000010000; //D=A
+				10: InstructionRom = 16'b0000000000010010; //@counter_h
+				11: InstructionRom = 16'b1110001100001000; //M=D
+				12: InstructionRom = 16'b0000000000000111; //@7
+				13: InstructionRom = 16'b1110110000010000; //D=A
+				14: InstructionRom = 16'b0000000000010001; //@address
+				15: InstructionRom = 16'b1111110000100000; //A=M
+				16: InstructionRom = 16'b1110001100001000; //M=D
+				17: InstructionRom = 16'b0000000000010001; //@address
+				18: InstructionRom = 16'b1111110000010000; //D=M
+				19: InstructionRom = 16'b0000000000000001; //@1
+				20: InstructionRom = 16'b1110000010010000; //D=D+A
+				21: InstructionRom = 16'b0000000000010001; //@address
+				22: InstructionRom = 16'b1110001100001000; //M=D
+				23: InstructionRom = 16'b0000000000010010; //@counter_h
+				24: InstructionRom = 16'b1111110010011000; //MD=M-1
+				25: InstructionRom = 16'b0000000000001100; //@LOOP_H
+				26: InstructionRom = 16'b1110001100000001; //D;JGT
+				27: InstructionRom = 16'b0000000000010000; //@counter_v
+				28: InstructionRom = 16'b1111110010011000; //MD=M-1
+				29: InstructionRom = 16'b0000000000001000; //@LOOP_V
+				30: InstructionRom = 16'b1110001100000001; //D;JGT
+				31: InstructionRom = 16'b0000000000011111; //@INFINITE_LOOP
+				32: InstructionRom = 16'b1110101010000111; //0;JMP
 				default : InstructionRom = 16'b0_000_0000_0000_0000;	// NOP(@0)
+
 			endcase
 		end
 	endfunction
@@ -79,7 +142,4 @@ module Computer(
 	// for debug
 	assign debug_pc = pc;
 	assign debug_inst = inst;
-	// assign debug_addressM = addressM;
-	// assign debug_outM = outM;
-	// assign debug_writeM = writeM;
 endmodule
