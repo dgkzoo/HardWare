@@ -99,8 +99,8 @@ module Computer(
 				// 22: InstructionRom = 16'b111_0_101010_000_111;	// 0;JMP
 				// default : InstructionRom = 16'b0_000_0000_0000_0000;	// NOP(@0)
 
-				// rect 縦512
-				0: InstructionRom = 16'b0000001000000000; //@512
+				// rect 縦20
+				0: InstructionRom = 16'b0000000000010100; //@20
 				1: InstructionRom = 16'b1110110000010000; //D=A
 				2: InstructionRom = 16'b0000000000010000; //@counter_v
 				3: InstructionRom = 16'b1110001100001000; //M=D
