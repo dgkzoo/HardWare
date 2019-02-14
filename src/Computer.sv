@@ -17,11 +17,8 @@ module Computer(
 	);
 
 	reg[15:0] inst;
-//	wire[15:0] outM, inM;
 	wire[15:0] inM;
 	wire[14:0] pc;
-//	wire[14:0] addressM;
-//	wire writeM;
 
 	// プログラムカウンタが指す命令をROMから取得する
 	always @(posedge clk) begin
